@@ -96,6 +96,8 @@ This game is designed to make learning about neuroscience fun and engaging. It c
 
 Play the game online: [https://roshchupkin.github.io/Neurotransmitter](https://roshchupkin.github.io/Neurotransmitter)
 
+**Status**: Currently deploying via GitHub Actions
+
 ## 📝 License
 
 This project is open source and available under the [MIT License](LICENSE).
