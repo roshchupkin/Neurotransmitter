@@ -419,9 +419,9 @@ const NeurotransmitterGame = () => {
           if (prev.length === 0) return prev;
           
           const fallSpeed = 0.1; // Units per millisecond
-          const movedNTs = prev.map(nt => ({ 
-            ...nt, 
-            y: nt.y + (fallSpeed * deltaTime) 
+          const movedNTs = prev.map(nt => ({
+            ...nt,
+            y: nt.y + (fallSpeed * gameSpeed * deltaTime)
           }));
           
           return movedNTs.filter(nt => nt.y <= 105);
@@ -430,14 +430,14 @@ const NeurotransmitterGame = () => {
         // Move power-ups
         setPowerUps(prev => {
           const fallSpeed = 0.1;
-          return prev.map(pu => ({ 
-            ...pu, 
-            y: pu.y + (fallSpeed * deltaTime) 
+          return prev.map(pu => ({
+            ...pu,
+            y: pu.y + (fallSpeed * gameSpeed * deltaTime)
           })).filter(pu => pu.y <= 105);
         });
 
         // Spawn NTs every 2 seconds
-        spawnTimeRef.current += deltaTime;
+        spawnTimeRef.current += deltaTime * gameSpeed;
         if (spawnTimeRef.current >= 2000) {
           spawnTimeRef.current = 0;
           const randomNT = neurotransmitters[Math.floor(Math.random() * neurotransmitters.length)];
@@ -466,7 +466,7 @@ const NeurotransmitterGame = () => {
         }
 
         // Change target every 10 seconds
-        targetTimeRef.current += deltaTime;
+        targetTimeRef.current += deltaTime * gameSpeed;
         if (targetTimeRef.current >= 10000) {
           targetTimeRef.current = 0;
           const randomNT = neurotransmitters[Math.floor(Math.random() * neurotransmitters.length)];
@@ -484,6 +484,7 @@ const NeurotransmitterGame = () => {
           cancelAnimationFrame(animationFrameRef.current);
         }
       };
+
     }, [gameActive]);
 
     // Check collisions
@@ -543,6 +544,7 @@ const NeurotransmitterGame = () => {
                 setActivePowerUps(ap => [...ap, activated]);
                 if (pu.type === 'Speed Boost') setSpeedBoost(true);
                 if (pu.type === 'Score Multiplier') setMultiplier(3);
+
                 if (pu.type === 'Shield') setShieldActive(true);
                 if (pu.type === 'Slow Motion') {
                   setGameSpeed(0.5);
@@ -566,6 +568,7 @@ const NeurotransmitterGame = () => {
       if (!gameActive) return;
 
       const powerUpInterval = setInterval(() => {
+
         setActivePowerUps(prev => {
           return prev.filter(pu => {
             if (Date.now() > pu.endTime) {
