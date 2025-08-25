@@ -607,7 +607,7 @@ const NeurotransmitterGame = () => {
       setGameTime(0);
       setMultiplier(1);
       setSpeedBoost(false);
-      lastTimeRef.current = 0;
+      lastTimeRef.current = performance.now();
       spawnTimeRef.current = 0;
       targetTimeRef.current = 0;
       
@@ -636,7 +636,7 @@ const NeurotransmitterGame = () => {
       setGameTime(0);
       setMultiplier(1);
       setSpeedBoost(false);
-      lastTimeRef.current = 0;
+      lastTimeRef.current = performance.now();
       spawnTimeRef.current = 0;
       targetTimeRef.current = 0;
     };
