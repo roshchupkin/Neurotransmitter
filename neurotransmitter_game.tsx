@@ -351,26 +351,31 @@ const NeurotransmitterGame = () => {
   });
 
   const ArcadeGame = React.memo(() => {
-    const [keys, setKeys] = useState<Record<string, boolean>>({});
+    const keysRef = React.useRef<Record<string, boolean>>({});
     const [highScore, setHighScore] = useState(0);
     const animationFrameRef = React.useRef<number>();
     const lastTimeRef = React.useRef(0);
     const spawnTimeRef = React.useRef(0);
     const targetTimeRef = React.useRef(0);
+    const speedBoostRef = React.useRef(speedBoost);
+
+    React.useEffect(() => {
+      speedBoostRef.current = speedBoost;
+    }, [speedBoost]);
 
     // Handle keyboard input
     React.useEffect(() => {
       const handleKeyDown = (e: KeyboardEvent) => {
         if (['ArrowLeft', 'ArrowRight', 'a', 'A', 'd', 'D'].includes(e.key)) {
           e.preventDefault();
-          setKeys(prev => ({ ...prev, [e.key]: true }));
+          keysRef.current[e.key] = true;
         }
       };
 
       const handleKeyUp = (e: KeyboardEvent) => {
         if (['ArrowLeft', 'ArrowRight', 'a', 'A', 'd', 'D'].includes(e.key)) {
           e.preventDefault();
-          setKeys(prev => ({ ...prev, [e.key]: false }));
+          keysRef.current[e.key] = false;
         }
       };
 
@@ -399,11 +404,11 @@ const NeurotransmitterGame = () => {
         setGameTime(prev => prev + deltaTime);
 
         // Move player
-        const moveSpeed = speedBoost ? 4 : 2;
-        if (keys['ArrowLeft'] || keys['a'] || keys['A']) {
+        const moveSpeed = speedBoostRef.current ? 4 : 2;
+        if (keysRef.current['ArrowLeft'] || keysRef.current['a'] || keysRef.current['A']) {
           setPlayerPos(prev => Math.max(5, prev - moveSpeed));
         }
-        if (keys['ArrowRight'] || keys['d'] || keys['D']) {
+        if (keysRef.current['ArrowRight'] || keysRef.current['d'] || keysRef.current['D']) {
           setPlayerPos(prev => Math.min(95, prev + moveSpeed));
         }
 
@@ -477,7 +482,7 @@ const NeurotransmitterGame = () => {
           cancelAnimationFrame(animationFrameRef.current);
         }
       };
-    }, [gameActive, keys, speedBoost]);
+    }, [gameActive]);
 
     // Check collisions
     React.useEffect(() => {
