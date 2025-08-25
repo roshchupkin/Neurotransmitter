@@ -54,11 +54,13 @@ const NeurotransmitterGame = () => {
   const [gameSpeed, setGameSpeed] = useState(1);
   const [level, setLevel] = useState(1);
   const [powerUps, setPowerUps] = useState<ActivePowerUp[]>([]);
+  const [activePowerUps, setActivePowerUps] = useState<ActivePowerUp[]>([]);
   const [combo, setCombo] = useState(0);
   const [maxCombo, setMaxCombo] = useState(0);
   const [gameTime, setGameTime] = useState(0);
   const [multiplier, setMultiplier] = useState(1);
   const [speedBoost, setSpeedBoost] = useState(false);
+  const [shieldActive, setShieldActive] = useState(false);
 
   const neurotransmitters: Neurotransmitter[] = useMemo(() => [
     {
@@ -509,7 +511,6 @@ const NeurotransmitterGame = () => {
                   });
                 } else {
                   // Wrong NT - lose life (unless shield is active)
-                  const shieldActive = powerUps.some(pu => pu.type === 'Shield' && pu.active);
                   if (!shieldActive) {
                     lostLife = true;
                   }
@@ -544,42 +545,50 @@ const NeurotransmitterGame = () => {
 
         // Check power-up collisions
         setPowerUps(prev => {
-          return prev.map(pu => {
+          const remaining: ActivePowerUp[] = [];
+          prev.forEach(pu => {
             if (pu.y > 80 && pu.y < 100) {
               const distance = Math.abs(pu.x - playerPos);
-              if (distance < 10 && !pu.active) {
-                // Activate power-up
+              if (distance < 10) {
                 const endTime = Date.now() + pu.duration;
+                const activated = { ...pu, active: true, endTime };
+                setActivePowerUps(ap => [...ap, activated]);
                 if (pu.type === 'Speed Boost') setSpeedBoost(true);
                 if (pu.type === 'Score Multiplier') setMultiplier(3);
-                
-                return { ...pu, active: true, endTime };
+                if (pu.type === 'Shield') setShieldActive(true);
+                if (pu.type === 'Slow Motion') {
+                  setGameSpeed(0.5);
+                  setTimeout(() => setGameSpeed(1), pu.duration);
+                }
+                return; // filter out collected power-up
               }
             }
-            return pu;
+            remaining.push(pu);
           });
+          return remaining;
         });
       };
 
       const collisionInterval = setInterval(checkCollisions, 100);
       return () => clearInterval(collisionInterval);
-    }, [gameActive, playerPos, currentTarget, powerUps, combo, multiplier, highScore]);
+    }, [gameActive, playerPos, currentTarget, powerUps, combo, multiplier, highScore, shieldActive]);
 
-    // Update power-ups
+    // Update active power-ups
     React.useEffect(() => {
       if (!gameActive) return;
 
       const powerUpInterval = setInterval(() => {
-        setPowerUps(prev => {
-          return prev.map(pu => {
-            if (pu.active && Date.now() > pu.endTime) {
-              // Power-up expired
+        setActivePowerUps(prev => {
+          return prev.filter(pu => {
+            if (Date.now() > pu.endTime) {
               if (pu.type === 'Speed Boost') setSpeedBoost(false);
               if (pu.type === 'Score Multiplier') setMultiplier(1);
-              return { ...pu, active: false };
+              if (pu.type === 'Shield') setShieldActive(false);
+              if (pu.type === 'Slow Motion') setGameSpeed(1);
+              return false;
             }
-            return pu;
-          }).filter(pu => pu.active || pu.y < 105);
+            return true;
+          });
         });
       }, 100);
 
@@ -606,12 +615,14 @@ const NeurotransmitterGame = () => {
       setGameSpeed(1);
       setFallingNTs([]);
       setPowerUps([]);
+      setActivePowerUps([]);
       setPlayerPos(50);
       setCombo(0);
       setMaxCombo(0);
       setGameTime(0);
       setMultiplier(1);
       setSpeedBoost(false);
+      setShieldActive(false);
       lastTimeRef.current = 0;
       spawnTimeRef.current = 0;
       targetTimeRef.current = 0;
@@ -634,6 +645,7 @@ const NeurotransmitterGame = () => {
       setGameSpeed(1);
       setFallingNTs([]);
       setPowerUps([]);
+      setActivePowerUps([]);
       setPlayerPos(50);
       setCurrentTarget(null);
       setCombo(0);
@@ -641,6 +653,7 @@ const NeurotransmitterGame = () => {
       setGameTime(0);
       setMultiplier(1);
       setSpeedBoost(false);
+      setShieldActive(false);
       lastTimeRef.current = 0;
       spawnTimeRef.current = 0;
       targetTimeRef.current = 0;
@@ -675,11 +688,11 @@ const NeurotransmitterGame = () => {
         )}
 
         {/* Active Power-ups Display */}
-        {gameActive && powerUps.some(pu => pu.active) && (
+        {gameActive && activePowerUps.length > 0 && (
           <div className="text-center mb-4 p-2 border border-yellow-400 rounded bg-yellow-900 bg-opacity-50">
             <div className="text-yellow-400 font-bold text-sm">ACTIVE POWER-UPS:</div>
             <div className="flex justify-center space-x-4 mt-1">
-              {powerUps.filter(pu => pu.active).map(pu => (
+              {activePowerUps.map(pu => (
                 <div key={pu.id} className="flex items-center space-x-1">
                   <span className={`${pu.color} p-1 rounded text-xs`}>{pu.icon}</span>
                   <span className="text-yellow-300 text-xs">{pu.name}</span>
