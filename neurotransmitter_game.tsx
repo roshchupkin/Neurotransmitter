@@ -486,52 +486,38 @@ const NeurotransmitterGame = () => {
       const checkCollisions = () => {
         setFallingNTs(prev => {
           const newNTs = [...prev];
-          let lostLife = false;
-          let gainedPoints = false;
-
-          newNTs.forEach((nt, index) => {
+          for (let i = newNTs.length - 1; i >= 0; i--) {
+            const nt = newNTs[i];
             if (nt.y > 80 && nt.y < 100) {
               const distance = Math.abs(nt.x - playerPos);
               if (distance < 10) {
-                // Collision detected
                 if (currentTarget && nt.name === currentTarget.name) {
-                  // Correct NT - gain points
-                  gainedPoints = true;
                   setCombo(prev => {
                     const newCombo = prev + 1;
                     setMaxCombo(prevMax => Math.max(prevMax, newCombo));
                     return newCombo;
                   });
+                  setArcadeScore(s => {
+                    const basePoints = 100;
+                    const comboBonus = Math.floor(combo / 3) * 50;
+                    const multiplierBonus = multiplier > 1 ? basePoints * (multiplier - 1) : 0;
+                    const totalPoints = (basePoints + comboBonus + multiplierBonus) * multiplier;
+                    const newScore = s + totalPoints;
+                    if (newScore > highScore) {
+                      setHighScore(newScore);
+                    }
+                    return newScore;
+                  });
                 } else {
-                  // Wrong NT - lose life (unless shield is active)
                   const shieldActive = powerUps.some(pu => pu.type === 'Shield' && pu.active);
                   if (!shieldActive) {
-                    lostLife = true;
+                    setLives(l => Math.max(0, l - 1));
                   }
                   setCombo(0);
                 }
-                // Remove the NT
-                newNTs.splice(index, 1);
+                newNTs.splice(i, 1);
               }
             }
-          });
-
-          if (lostLife) {
-            setLives(l => Math.max(0, l - 1));
-          }
-          if (gainedPoints) {
-            setArcadeScore(s => {
-              const basePoints = 100;
-              const comboBonus = Math.floor(combo / 3) * 50;
-              const multiplierBonus = multiplier > 1 ? basePoints * (multiplier - 1) : 0;
-              const totalPoints = (basePoints + comboBonus + multiplierBonus) * multiplier;
-              const newScore = s + totalPoints;
-              
-              if (newScore > highScore) {
-                setHighScore(newScore);
-              }
-              return newScore;
-            });
           }
 
           return newNTs;
