@@ -54,31 +54,31 @@ const LearnMode = React.memo(({ neurotransmitters, currentLevel, setCurrentLevel
   }, [setCurrentLevel, neurotransmitters.length]);
   
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg">
-      <div className="text-center mb-8">
-        <div className={`inline-block p-6 rounded-full ${nt.color} text-white mb-4`}>
-          <span className="text-4xl">{nt.icon}</span>
+    <div className="max-w-4xl mx-auto p-4 sm:p-6 bg-white rounded-xl shadow-lg">
+      <div className="text-center mb-6 sm:mb-8">
+        <div className={`inline-block p-4 sm:p-6 rounded-full ${nt.color} text-white mb-4`}>
+          <span className="text-3xl sm:text-4xl">{nt.icon}</span>
         </div>
-        <h2 className="text-3xl font-bold text-gray-800 mb-2">{nt.name}</h2>
-        <p className="text-xl text-gray-600">{nt.function}</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">{nt.name}</h2>
+        <p className="text-lg sm:text-xl text-gray-600">{nt.function}</p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8">
-        <div className="space-y-6">
-          <div className="bg-blue-50 p-4 rounded-lg">
-            <h3 className="text-lg font-semibold mb-2 flex items-center">
-              <Lightbulb className="w-5 h-5 mr-2" />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+        <div className="space-y-4 sm:space-y-6">
+          <div className="bg-blue-50 p-3 sm:p-4 rounded-lg">
+            <h3 className="text-base sm:text-lg font-semibold mb-2 flex items-center">
+              <Lightbulb className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
               What it does
             </h3>
-            <p className="text-gray-700">{nt.description}</p>
+            <p className="text-sm sm:text-base text-gray-700">{nt.description}</p>
           </div>
 
-          <div className="bg-green-50 p-4 rounded-lg">
-            <h3 className="text-lg font-semibold mb-2 flex items-center">
-              <Zap className="w-5 h-5 mr-2" />
+          <div className="bg-green-50 p-3 sm:p-4 rounded-lg">
+            <h3 className="text-base sm:text-lg font-semibold mb-2 flex items-center">
+              <Zap className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
               Effects
             </h3>
-            <ul className="list-disc list-inside text-gray-700 space-y-1">
+            <ul className="list-disc list-inside text-sm sm:text-base text-gray-700 space-y-1">
               {nt.effects.map((effect, idx) => (
                 <li key={idx}>{effect}</li>
               ))}
@@ -86,34 +86,34 @@ const LearnMode = React.memo(({ neurotransmitters, currentLevel, setCurrentLevel
           </div>
         </div>
 
-        <div className="space-y-6">
-          <div className="bg-red-50 p-4 rounded-lg">
-            <h3 className="text-lg font-semibold mb-2 flex items-center">
-              <Heart className="w-5 h-5 mr-2" />
+        <div className="space-y-4 sm:space-y-6">
+          <div className="bg-red-50 p-3 sm:p-4 rounded-lg">
+            <h3 className="text-base sm:text-lg font-semibold mb-2 flex items-center">
+              <Heart className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
               Related Conditions
             </h3>
-            <ul className="list-disc list-inside text-gray-700 space-y-1">
+            <ul className="list-disc list-inside text-sm sm:text-base text-gray-700 space-y-1">
               {nt.disorders.map((disorder, idx) => (
                 <li key={idx}>{disorder}</li>
               ))}
             </ul>
           </div>
 
-          <div className="bg-yellow-50 p-4 rounded-lg">
-            <h3 className="text-lg font-semibold mb-2 flex items-center">
-              <Brain className="w-5 h-5 mr-2" />
+          <div className="bg-yellow-50 p-3 sm:p-4 rounded-lg">
+            <h3 className="text-base sm:text-lg font-semibold mb-2 flex items-center">
+              <Brain className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
               Fun Fact
             </h3>
-            <p className="text-gray-700">{nt.facts}</p>
+            <p className="text-sm sm:text-base text-gray-700">{nt.facts}</p>
           </div>
         </div>
       </div>
 
-      <div className="flex justify-between mt-8">
+      <div className="flex flex-col sm:flex-row justify-between items-center mt-6 sm:mt-8 space-y-4 sm:space-y-0">
         <button
           onClick={handlePrevious}
           disabled={currentLevel === 0}
-          className="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg disabled:opacity-50 hover:bg-gray-400 transition-colors"
+          className="w-full sm:w-auto px-4 sm:px-6 py-2 bg-gray-300 text-gray-700 rounded-lg disabled:opacity-50 hover:bg-gray-400 transition-colors"
         >
           Previous
         </button>
@@ -127,7 +127,7 @@ const LearnMode = React.memo(({ neurotransmitters, currentLevel, setCurrentLevel
         <button
           onClick={handleNext}
           disabled={currentLevel === neurotransmitters.length - 1}
-          className="px-6 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50 hover:bg-blue-600 transition-colors"
+          className="w-full sm:w-auto px-4 sm:px-6 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50 hover:bg-blue-600 transition-colors"
         >
           Next
         </button>
@@ -170,24 +170,24 @@ const QuizMode = React.memo(({ quizQuestions, currentLevel, setCurrentLevel, sco
 
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg">
+    <div className="max-w-2xl mx-auto p-4 sm:p-6 bg-white rounded-xl shadow-lg">
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Quiz Mode</h2>
-        <div className="flex justify-center items-center space-x-4 text-sm text-gray-600">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Quiz Mode</h2>
+        <div className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4 text-sm text-gray-600">
           <span>Question {(currentLevel % quizQuestions.length) + 1}</span>
           <span>Score: {score}</span>
         </div>
       </div>
 
-      <div className="mb-8">
-        <h3 className="text-lg font-semibold mb-4">{question.question}</h3>
+      <div className="mb-6 sm:mb-8">
+        <h3 className="text-base sm:text-lg font-semibold mb-4">{question.question}</h3>
         
         <div className="space-y-3">
           {question.options.map((option, idx) => (
             <button
               key={idx}
               onClick={() => !showResult && handleAnswer(idx)}
-              className={`w-full p-3 text-left rounded-lg border transition-colors ${
+              className={`w-full p-3 sm:p-4 text-left rounded-lg border transition-colors text-sm sm:text-base ${
                 showResult
                   ? idx === question.correct
                     ? 'bg-green-100 border-green-500 text-green-700'
@@ -205,11 +205,11 @@ const QuizMode = React.memo(({ quizQuestions, currentLevel, setCurrentLevel, sco
       </div>
 
       {showResult && (
-        <div className="mb-6 p-4 bg-blue-50 rounded-lg">
-          <p className="font-medium mb-2">
+        <div className="mb-6 p-3 sm:p-4 bg-blue-50 rounded-lg">
+          <p className="font-medium mb-2 text-sm sm:text-base">
             {selectedAnswer === question.correct ? '✅ Correct!' : '❌ Incorrect'}
           </p>
-          <p className="text-gray-700">{question.explanation}</p>
+          <p className="text-sm sm:text-base text-gray-700">{question.explanation}</p>
         </div>
       )}
 
@@ -217,7 +217,7 @@ const QuizMode = React.memo(({ quizQuestions, currentLevel, setCurrentLevel, sco
         {showResult ? (
           <button
             onClick={nextQuestion}
-            className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            className="w-full sm:w-auto px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
           >
             Next Question
           </button>
@@ -254,6 +254,8 @@ const ArcadeGame = React.memo(({ neurotransmitters, powerUpTypes }: {
     const lastTimeRef = useRef(0);
     const spawnTimeRef = useRef(0);
     const targetTimeRef = useRef(0);
+    const gameAreaRef = useRef<HTMLDivElement>(null);
+    const [touchStartX, setTouchStartX] = useState<number | null>(null);
     
     const resetGameState = useCallback(() => {
         if (animationFrameRef.current) {
@@ -313,6 +315,30 @@ const ArcadeGame = React.memo(({ neurotransmitters, powerUpTypes }: {
             window.removeEventListener('keyup', handleKeyUp);
         };
     }, []);
+
+    // Handle touch controls
+    const handleTouchStart = useCallback((e: React.TouchEvent) => {
+        if (!gameActive) return;
+        const touch = e.touches[0];
+        setTouchStartX(touch.clientX);
+    }, [gameActive]);
+
+    const handleTouchMove = useCallback((e: React.TouchEvent) => {
+        if (!gameActive || touchStartX === null) return;
+        e.preventDefault();
+        const touch = e.touches[0];
+        const deltaX = touch.clientX - touchStartX;
+        
+        if (gameAreaRef.current) {
+            const rect = gameAreaRef.current.getBoundingClientRect();
+            const touchPercent = ((touch.clientX - rect.left) / rect.width) * 100;
+            setPlayerPos(Math.max(5, Math.min(95, touchPercent)));
+        }
+    }, [gameActive, touchStartX]);
+
+    const handleTouchEnd = useCallback(() => {
+        setTouchStartX(null);
+    }, []);
     
     // Main Game Loop
     useEffect(() => {
@@ -334,7 +360,7 @@ const ArcadeGame = React.memo(({ neurotransmitters, powerUpTypes }: {
 
         setGameTime(prev => prev + deltaTime);
   
-        // Player Movement
+        // Player Movement (keyboard only, touch handled separately)
         setPlayerPos(prev => {
           const moveSpeed = speedBoost ? 0.15 : 0.08; // Units per millisecond
           let newPos = prev;
@@ -451,33 +477,43 @@ const ArcadeGame = React.memo(({ neurotransmitters, powerUpTypes }: {
     }, [lives, gameActive, arcadeScore]);
 
     return (
-        <div className="max-w-4xl mx-auto p-6 bg-black text-white rounded-xl shadow-lg font-mono">
-            <div className="text-center mb-6">
-                <h2 className="text-3xl font-bold text-green-400 mb-2">🧠 NEURO DEFENDER 🧠</h2>
-                <p className="text-green-300">Catch the correct neurotransmitters!</p>
+        <div className="max-w-4xl mx-auto p-3 sm:p-6 bg-black text-white rounded-xl shadow-lg font-mono">
+            <div className="text-center mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-3xl font-bold text-green-400 mb-2">🧠 NEURO DEFENDER 🧠</h2>
+                <p className="text-sm sm:text-base text-green-300">Catch the correct neurotransmitters!</p>
             </div>
-            <div className="flex justify-between items-center mb-4 text-green-400">
+            
+            {/* Mobile-friendly score display */}
+            <div className="grid grid-cols-2 sm:flex sm:justify-between items-center mb-3 sm:mb-4 text-green-400 text-xs sm:text-sm">
                 <div>SCORE: {arcadeScore}</div>
-                <div>HIGH SCORE: {highScore}</div>
-                <div>LEVEL: {level}</div>
-                <div>LIVES: {'❤️'.repeat(lives)}</div>
+                <div>HIGH: {highScore}</div>
+                <div className="hidden sm:block">LEVEL: {level}</div>
+                <div className="hidden sm:block">LIVES: {'❤️'.repeat(lives)}</div>
             </div>
-            <div className="flex justify-between items-center mb-2 text-yellow-400 text-sm">
+            
+            {/* Mobile-specific info */}
+            <div className="sm:hidden text-center mb-2 text-yellow-400 text-xs">
+                <div>LEVEL: {level} | LIVES: {'❤️'.repeat(lives)}</div>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row justify-between items-center mb-2 text-yellow-400 text-xs">
                 <div>COMBO: {combo} (MAX: {maxCombo})</div>
-                <div>MULTIPLIER: {multiplier}x</div>
+                <div>MULT: {multiplier}x</div>
                 <div>TIME: {Math.floor(gameTime / 1000)}s</div>
             </div>
+            
             {currentTarget && gameActive && (
-                <div className="text-center mb-4 p-3 border-2 border-green-400 rounded">
-                    <div className="text-yellow-400 font-bold">TARGET:</div>
-                    <div className="text-xl">{currentTarget.icon} {currentTarget.name}</div>
-                    <div className="text-sm text-green-300">{currentTarget.function}</div>
+                <div className="text-center mb-3 sm:mb-4 p-2 sm:p-3 border-2 border-green-400 rounded">
+                    <div className="text-yellow-400 font-bold text-xs sm:text-sm">TARGET:</div>
+                    <div className="text-lg sm:text-xl">{currentTarget.icon} {currentTarget.name}</div>
+                    <div className="text-xs sm:text-sm text-green-300">{currentTarget.function}</div>
                 </div>
             )}
+            
             {gameActive && activePowerUps.length > 0 && (
-                <div className="text-center mb-4 p-2 border border-yellow-400 rounded bg-yellow-900 bg-opacity-50">
-                    <div className="text-yellow-400 font-bold text-sm">ACTIVE POWER-UPS:</div>
-                    <div className="flex justify-center space-x-4 mt-1">
+                <div className="text-center mb-3 sm:mb-4 p-2 border border-yellow-400 rounded bg-yellow-900 bg-opacity-50">
+                    <div className="text-yellow-400 font-bold text-xs">ACTIVE POWER-UPS:</div>
+                    <div className="flex flex-wrap justify-center gap-2 mt-1">
                         {activePowerUps.map(pu => (
                             <div key={pu.id} className="flex items-center space-x-1">
                                 <span className={`${pu.color} p-1 rounded text-xs`}>{pu.icon}</span>
@@ -487,48 +523,60 @@ const ArcadeGame = React.memo(({ neurotransmitters, powerUpTypes }: {
                     </div>
                 </div>
             )}
-            <div className="relative bg-gray-900 border-2 border-green-400 rounded overflow-hidden" style={{ height: '400px' }}>
+            
+            <div 
+                ref={gameAreaRef}
+                className="relative bg-gray-900 border-2 border-green-400 rounded overflow-hidden touch-none" 
+                style={{ height: '300px', minHeight: '300px' }}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+            >
                 {fallingNTs.map(nt => (
                     <div key={nt.id} className="absolute" style={{ left: `${nt.x}%`, top: `${nt.y}%`, transform: 'translate(-50%, -50%)' }}>
-                        <div className={`w-8 h-8 ${nt.color} rounded-full flex items-center justify-center text-white font-bold border border-white text-xs`}>{nt.icon}</div>
-                        <div className="text-xs text-center text-white mt-1">{nt.name.slice(0, 4)}</div>
+                        <div className={`w-6 h-6 sm:w-8 sm:h-8 ${nt.color} rounded-full flex items-center justify-center text-white font-bold border border-white text-xs`}>{nt.icon}</div>
+                        <div className="text-xs text-center text-white mt-1 hidden sm:block">{nt.name.slice(0, 4)}</div>
                     </div>
                 ))}
                 {powerUps.map(pu => (
                     <div key={pu.id} className="absolute" style={{ left: `${pu.x}%`, top: `${pu.y}%`, transform: 'translate(-50%, -50%)' }}>
-                        <div className={`w-10 h-10 ${pu.color} rounded-full flex items-center justify-center text-white font-bold border-2 border-yellow-300 text-lg animate-pulse`}>{pu.icon}</div>
-                        <div className="text-xs text-center text-yellow-300 mt-1 font-bold">{pu.name.slice(0, 6)}</div>
+                        <div className={`w-8 h-8 sm:w-10 sm:h-10 ${pu.color} rounded-full flex items-center justify-center text-white font-bold border-2 border-yellow-300 text-sm sm:text-lg animate-pulse`}>{pu.icon}</div>
+                        <div className="text-xs text-center text-yellow-300 mt-1 font-bold hidden sm:block">{pu.name.slice(0, 6)}</div>
                     </div>
                 ))}
                 {gameActive && (
                     <div className="absolute bottom-4" style={{ left: `${playerPos}%`, transform: 'translateX(-50%)' }}>
-                        <div className={`w-12 h-8 bg-blue-500 rounded border-2 ${shieldActive ? 'border-yellow-300 animate-pulse' : 'border-white'} flex items-center justify-center text-lg`}>🧠</div>
+                        <div className={`w-10 h-6 sm:w-12 sm:h-8 bg-blue-500 rounded border-2 ${shieldActive ? 'border-yellow-300 animate-pulse' : 'border-white'} flex items-center justify-center text-sm sm:text-lg`}>🧠</div>
                     </div>
                 )}
                 {!gameActive && lives <= 0 && arcadeScore > 0 && (
                     <div className="absolute inset-0 bg-black bg-opacity-90 flex items-center justify-center">
-                        <div className="text-center">
-                            <div className="text-4xl text-red-400 mb-4">GAME OVER</div>
-                            <div className="text-xl text-green-400 mb-4">Final Score: {arcadeScore}</div>
-                            <button onClick={startGame} className="px-6 py-3 bg-green-600 hover:bg-green-700 rounded text-white font-bold">PLAY AGAIN</button>
+                        <div className="text-center p-4">
+                            <div className="text-2xl sm:text-4xl text-red-400 mb-4">GAME OVER</div>
+                            <div className="text-lg sm:text-xl text-green-400 mb-4">Final Score: {arcadeScore}</div>
+                            <button onClick={startGame} className="px-4 sm:px-6 py-2 sm:py-3 bg-green-600 hover:bg-green-700 rounded text-white font-bold text-sm sm:text-base">PLAY AGAIN</button>
                         </div>
                     </div>
                 )}
                 {!gameActive && arcadeScore === 0 && (
                     <div className="absolute inset-0 bg-black bg-opacity-90 flex items-center justify-center">
-                        <div className="text-center">
-                            <div className="text-3xl text-green-400 mb-4">READY TO PLAY?</div>
-                            <div className="text-lg text-green-300 mb-6">Use ←→ or A/D to move</div>
-                            <button onClick={startGame} className="px-8 py-4 bg-green-600 hover:bg-green-700 rounded text-white font-bold text-xl">START GAME</button>
+                        <div className="text-center p-4">
+                            <div className="text-xl sm:text-3xl text-green-400 mb-4">READY TO PLAY?</div>
+                            <div className="text-sm sm:text-lg text-green-300 mb-4 sm:mb-6">
+                                <div className="hidden sm:block">Use ←→ or A/D to move</div>
+                                <div className="sm:hidden">Touch and drag to move</div>
+                            </div>
+                            <button onClick={startGame} className="px-6 sm:px-8 py-3 sm:py-4 bg-green-600 hover:bg-green-700 rounded text-white font-bold text-lg sm:text-xl">START GAME</button>
                         </div>
                     </div>
                 )}
             </div>
-            <div className="mt-4 text-center">
+            
+            <div className="mt-3 sm:mt-4 text-center">
                 {gameActive ? (
-                    <button onClick={resetGameState} className="px-6 py-3 bg-red-600 hover:bg-red-700 rounded text-white font-bold">QUIT GAME</button>
+                    <button onClick={resetGameState} className="px-4 sm:px-6 py-2 sm:py-3 bg-red-600 hover:bg-red-700 rounded text-white font-bold text-sm sm:text-base">QUIT GAME</button>
                 ) : (
-                    <p className="text-sm text-green-300">Good luck!</p>
+                    <p className="text-xs sm:text-sm text-green-300">Good luck!</p>
                 )}
             </div>
         </div>
@@ -560,17 +608,17 @@ const SynapseSimulator = ({ neurotransmitters }: {
     const nt = neurotransmitters[selectedNT];
 
     return (
-        <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg">
-            <h2 className="text-2xl font-bold text-center mb-6">Synapse Simulator</h2>
-            <div className="grid md:grid-cols-2 gap-8">
+        <div className="max-w-4xl mx-auto p-4 sm:p-6 bg-white rounded-xl shadow-lg">
+            <h2 className="text-xl sm:text-2xl font-bold text-center mb-6">Synapse Simulator</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
                 <div>
-                    <h3 className="text-lg font-semibold mb-4">Select Neurotransmitter</h3>
+                    <h3 className="text-base sm:text-lg font-semibold mb-4">Select Neurotransmitter</h3>
                     <div className="space-y-2">
                         {neurotransmitters.map((neurotransmitter, idx) => (
                             <button
                                 key={idx}
                                 onClick={() => setSelectedNT(idx)}
-                                className={`w-full p-3 text-left rounded-lg border transition-colors ${selectedNT === idx ? `${neurotransmitter.color} text-white` : 'bg-gray-50 border-gray-200 hover:bg-gray-100'}`}
+                                className={`w-full p-3 text-left rounded-lg border transition-colors text-sm sm:text-base ${selectedNT === idx ? `${neurotransmitter.color} text-white` : 'bg-gray-50 border-gray-200 hover:bg-gray-100'}`}
                             >
                                 <span className="mr-2">{neurotransmitter.icon}</span>
                                 {neurotransmitter.name}
@@ -579,24 +627,24 @@ const SynapseSimulator = ({ neurotransmitters }: {
                     </div>
                 </div>
                 <div>
-                    <h3 className="text-lg font-semibold mb-4">Synapse Activity</h3>
-                    <div className="relative bg-gray-100 rounded-lg p-8 mb-4">
+                    <h3 className="text-base sm:text-lg font-semibold mb-4">Synapse Activity</h3>
+                    <div className="relative bg-gray-100 rounded-lg p-6 sm:p-8 mb-4">
                         <div className="text-center">
-                            <div className="w-20 h-20 bg-blue-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                                <span className="text-2xl">{nt.icon}</span>
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-blue-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                                <span className="text-xl sm:text-2xl">{nt.icon}</span>
                             </div>
-                            <div className="w-full bg-gray-200 rounded-full h-4 mb-4">
-                                <div className={`h-4 rounded-full transition-all duration-300 ${nt.color}`} style={{ width: `${synapseActivity}%` }}></div>
+                            <div className="w-full bg-gray-200 rounded-full h-3 sm:h-4 mb-4">
+                                <div className={`h-3 sm:h-4 rounded-full transition-all duration-300 ${nt.color}`} style={{ width: `${synapseActivity}%` }}></div>
                             </div>
                             <p className="text-sm text-gray-600 mb-4">Activity Level: {synapseActivity}%</p>
-                            <button onClick={releaseBurst} disabled={isReleasing} className={`px-6 py-3 ${nt.color} text-white rounded-lg disabled:opacity-50 transition-all`}>
+                            <button onClick={releaseBurst} disabled={isReleasing} className={`w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 ${nt.color} text-white rounded-lg disabled:opacity-50 transition-all text-sm sm:text-base`}>
                                 {isReleasing ? 'Releasing...' : 'Release Burst'}
                             </button>
                         </div>
                     </div>
-                    <div className="bg-blue-50 p-4 rounded-lg">
-                        <h4 className="font-semibold mb-2">{nt.name} Effects:</h4>
-                        <p className="text-sm text-gray-700">{nt.description}</p>
+                    <div className="bg-blue-50 p-3 sm:p-4 rounded-lg">
+                        <h4 className="font-semibold mb-2 text-sm sm:text-base">{nt.name} Effects:</h4>
+                        <p className="text-xs sm:text-sm text-gray-700">{nt.description}</p>
                     </div>
                 </div>
             </div>
@@ -610,37 +658,45 @@ const GameModeSelector = ({ gameMode, setGameMode, setCurrentLevel, setScore }: 
   setCurrentLevel: React.Dispatch<React.SetStateAction<number>>;
   setScore: React.Dispatch<React.SetStateAction<number>>;
 }) => (
-    <div className="text-center mb-8">
-      <h1 className="text-4xl font-bold text-gray-800 mb-2 flex items-center justify-center">
-        <Brain className="w-10 h-10 mr-3 text-blue-500" />
-        Neurotransmitter Explorer
+    <div className="text-center mb-6 sm:mb-8">
+      <h1 className="text-2xl sm:text-4xl font-bold text-gray-800 mb-2 flex flex-col sm:flex-row items-center justify-center">
+        <Brain className="w-8 h-8 sm:w-10 sm:h-10 mr-0 sm:mr-3 text-blue-500 mb-2 sm:mb-0" />
+        <span className="text-center">Neurotransmitter Explorer</span>
       </h1>
-      <p className="text-gray-600 mb-8">Learn about the brain's chemical messengers</p>
+      <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">Learn about the brain's chemical messengers</p>
       
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-3 sm:gap-4">
         <button
           onClick={() => {setGameMode('learn'); setCurrentLevel(0);}}
-          className={`px-6 py-3 rounded-lg transition-colors ${gameMode === 'learn' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+          className={`px-3 sm:px-6 py-2 sm:py-3 rounded-lg transition-colors text-sm sm:text-base ${gameMode === 'learn' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
         >
-          <Lightbulb className="w-5 h-5 inline mr-2" />Learn Mode
+          <Lightbulb className="w-4 h-4 sm:w-5 sm:h-5 inline mr-1 sm:mr-2" />
+          <span className="hidden sm:inline">Learn Mode</span>
+          <span className="sm:hidden">Learn</span>
         </button>
         <button
           onClick={() => {setGameMode('quiz'); setCurrentLevel(0); setScore(0);}}
-          className={`px-6 py-3 rounded-lg transition-colors ${gameMode === 'quiz' ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+          className={`px-3 sm:px-6 py-2 sm:py-3 rounded-lg transition-colors text-sm sm:text-base ${gameMode === 'quiz' ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
         >
-          <Target className="w-5 h-5 inline mr-2" />Quiz Mode
+          <Target className="w-4 h-4 sm:w-5 sm:h-5 inline mr-1 sm:mr-2" />
+          <span className="hidden sm:inline">Quiz Mode</span>
+          <span className="sm:hidden">Quiz</span>
         </button>
         <button
           onClick={() => setGameMode('arcade')}
-          className={`px-6 py-3 rounded-lg transition-colors ${gameMode === 'arcade' ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+          className={`px-3 sm:px-6 py-2 sm:py-3 rounded-lg transition-colors text-sm sm:text-base ${gameMode === 'arcade' ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
         >
-          <Zap className="w-5 h-5 inline mr-2" />Arcade Game
+          <Zap className="w-4 h-4 sm:w-5 sm:h-5 inline mr-1 sm:mr-2" />
+          <span className="hidden sm:inline">Arcade Game</span>
+          <span className="sm:hidden">Arcade</span>
         </button>
         <button
           onClick={() => setGameMode('simulator')}
-          className={`px-6 py-3 rounded-lg transition-colors ${gameMode === 'simulator' ? 'bg-purple-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+          className={`px-3 sm:px-6 py-2 sm:py-3 rounded-lg transition-colors text-sm sm:text-base ${gameMode === 'simulator' ? 'bg-purple-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
         >
-          <Brain className="w-5 h-5 inline mr-2" />Synapse Simulator
+          <Brain className="w-4 h-4 sm:w-5 sm:h-5 inline mr-1 sm:mr-2" />
+          <span className="hidden sm:inline">Synapse Simulator</span>
+          <span className="sm:hidden">Simulator</span>
         </button>
       </div>
     </div>
@@ -677,7 +733,7 @@ const NeurotransmitterGame = () => {
   ], []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-2 sm:p-4">
       <GameModeSelector 
         gameMode={gameMode} 
         setGameMode={setGameMode} 
@@ -690,12 +746,12 @@ const NeurotransmitterGame = () => {
       {gameMode === 'arcade' && <ArcadeGame neurotransmitters={neurotransmitters} powerUpTypes={powerUpTypes} />}
       {gameMode === 'simulator' && <SynapseSimulator neurotransmitters={neurotransmitters} />}
       
-      <div className="text-center mt-8">
+      <div className="text-center mt-6 sm:mt-8">
         <button
           onClick={() => {setGameMode('learn'); setCurrentLevel(0); setScore(0);}}
-          className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+          className="px-3 sm:px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm sm:text-base"
         >
-          <RotateCcw className="w-4 h-4 inline mr-2" />
+          <RotateCcw className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
           Reset to Learn Mode
         </button>
       </div>
